@@ -1,0 +1,26 @@
+{% extends "fair_lottery/views/templates/base.html" %}
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span8">
+        <h1>已经结束的抽奖</h1>
+        <ol>
+        {% for draw in draws %}
+            <li><a href="{{servlet-context}}/draw/{{draw.id}}">{{draw.name}}</a></li>
+        {% endfor %}
+        </ol>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8">
+        <h1>正在进行的抽奖</h1>
+        <ol>
+        {% for draw in draws-not-end %}
+            <li><a href="{{servlet-context}}/draw/{{draw.id}}">{{draw.name}}</a></li>
+        {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% endblock %}

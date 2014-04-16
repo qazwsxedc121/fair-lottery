@@ -1,0 +1,55 @@
+{% extends "fair_lottery/views/templates/base.html" %}
+{% block content %}
+
+<div class="row-fluid">
+    <div class="span8">
+        <h1>Users</h1>
+        <table class="table">
+            <thead><tr><th>#</th><th>邮箱</th></tr></thead>
+            <tbody>
+            {% for usr in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ usr.email }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <p>
+        {% if user-id %}
+            {% if not-attended %}
+            <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">我要参加 &raquo;</button>
+            {% else %}
+            您已经参加过这次抽签了
+            {% endif %}
+        {% else %}
+            为了记录您的参与记录,请先登录后再参与
+        {% endif %}
+        </p>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <form action="{{servlet-context}}/draw-attend" method="POST" role="form">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">填写自定字符串(注意:每一个字符都会影响最终结果)</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="draw-id" name="draw-id" value="{{draw-id}}">
+                    <div class="form-group">
+                          <input type="text" class="form-control" id="random-str" name="random-str">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">算了</button>
+                    <button type="submit" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

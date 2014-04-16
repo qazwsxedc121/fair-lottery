@@ -1,0 +1,23 @@
+{% extends "fair_lottery/views/templates/base.html" %}
+{% block content %}
+  <div class="jumbotron">
+    <h1>一个公平的抽签系统</h1>
+    <dl>
+        <dt>公平</dt>
+        <dd>由sha256保证,每个人的参与都会改变最终抽签的结果</dd>
+        <dt>可验证</dt>
+        <dd>每个人都可以在抽奖结束后验证自己的参与</dd>
+        <dt>透明</dt>
+        <dd>所有人的参与均有记录,可以检验是否有一人多票的情况</dd>
+    </dl>
+      <p>
+          <a class="btn btn-primary btn-lg" href="{{servlet-context}}/about">原理 &raquo;</a>
+          <a class="btn btn-primary btn-lg" href="{{servlet-context}}/draw">历史抽签记录 &raquo;</a>
+      </p>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span8">
+    </div>
+  </div>
+{% endblock %}

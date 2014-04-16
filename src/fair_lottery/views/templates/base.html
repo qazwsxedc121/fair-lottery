@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <title>公平抽签</title>
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{servlet-context}}/">公平抽签</a>
+        </div>
+        {% block menu %}
+          {% include "fair_lottery/views/templates/menu.html" %}
+        {% endblock %}
+      </div>
+    </div>
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <!-- scripts and styles -->
+    {% style "/css/bootstrap-theme.min.css" %}
+    {% style "/css/bootstrap.min.css" %}
+    {% style "/css/screen.css" %}
+    <script src="//code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
+    {% script "/js/bootstrap.min.js" %}
+    <script type="text/javascript">
+      var context = "{{servlet-context}}";
+      $(function() {
+        $("#{{selected-page}}").addClass("active");
+      });
+    </script>
+    </body>
+</html>

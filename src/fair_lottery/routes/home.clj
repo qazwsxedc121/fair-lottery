@@ -24,11 +24,17 @@
       (let [users (:user draw)]
         (if (draw :end)
           (layout/render "draw.html" {:users users
-                                      :winner-email (:email (:winner (:result draw)))})
+                                      :winner-email (:email (:winner (:result draw)))
+                                      :draw-id draw-id})
           (layout/render "draw-notend.html" {:users users
                                            :draw-id draw-id
                                            :not-attended (not-attended user-id users)})))
       (layout/render "home.html" {}))))
+
+(defn draw-data [draw-id]
+  (let [draw (db/get-draw draw-id)]
+    {:headers {"Content-Disposition" "attachment; filename=\"data.json\""}
+     :body (:result draw)}))
 
 (defn draw-list-page []
   (let [draw-list-end (db/get-draw-list-end)
@@ -54,4 +60,5 @@
   (GET "/draw" [] (draw-list-page))
   (GET "/draw/:id" [id] (draw-page id))
   (POST "/draw-attend" [draw-id random-str] (draw-attend draw-id random-str))
-  (POST "/draw-create" [name time-in-hour] (draw-create name time-in-hour)))
+  (POST "/draw-create" [name time-in-hour] (draw-create name time-in-hour))
+  (GET "/draw/data/:id" [id] (draw-data id)))

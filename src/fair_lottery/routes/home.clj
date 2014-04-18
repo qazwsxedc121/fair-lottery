@@ -34,7 +34,7 @@
 (defn draw-data [draw-id]
   (let [draw (db/get-draw draw-id)]
     {:headers {"Content-Disposition" "attachment; filename=\"data.json\""}
-     :body (:result draw)}))
+     :body (:user draw)}))
 
 (defn draw-list-page []
   (let [draw-list-end (db/get-draw-list-end)

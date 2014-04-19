@@ -14,6 +14,9 @@
   (let [x-str (sha256 data)]
     (mod (BigInteger. x-str 16) amount)))
 
+(defn current-timestamp []
+  (quot (System/currentTimeMillis) 1000))
+
 
 
 

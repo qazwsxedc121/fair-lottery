@@ -27,8 +27,9 @@
                                       :winner-email (:email (:winner (:result draw)))
                                       :draw-id draw-id})
           (layout/render "draw-notend.html" {:users users
-                                           :draw-id draw-id
-                                           :not-attended (not-attended user-id users)})))
+                                             :draw-id draw-id
+                                             :not-attended (not-attended user-id users)
+                                             :endtime (:endtime draw)})))
       (layout/render "home.html" {}))))
 
 (defn draw-data [draw-id]
@@ -46,7 +47,7 @@
   (when-let [user-id (session/get :user-id)]
     (do
       (when (not-attended user-id (:user (db/get-draw draw-id)))
-        (db/update-draw-add-gamer draw-id user-id random-str (quot (System/currentTimeMillis) 1000)))
+        (db/update-draw-add-gamer draw-id user-id random-str (util/current-timestamp)))
       (draw-page draw-id))))
 
 (defn draw-create [name time-in-hour]

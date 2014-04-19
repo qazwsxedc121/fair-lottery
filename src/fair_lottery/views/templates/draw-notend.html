@@ -3,6 +3,8 @@
 
 <div class="row-fluid">
     <div class="span8">
+        <h1>结束时间</h1>
+        <p id="endtime" data-endtime="{{ endtime }}"></p>
         <h1>Users</h1>
         <table class="table">
             <thead><tr><th>#</th><th>邮箱</th></tr></thead>
@@ -52,4 +54,12 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block scriptblock %}
+<script type="text/javascript">
+    var $timer =  $("#endtime");
+    var timestamp = $timer.data("endtime");
+    $timer.html((new Date(timestamp * 1000)).toLocaleString());
+</script>
 {% endblock %}

@@ -28,11 +28,20 @@
 (def my-pool (at-at/mk-pool))
 
 (defn create-draw [name time-in-hour]
-  (let [document (mc/insert-and-return "draw" {:name name :user [] :end false})
+  (let [timestamp (+ (util/current-timestamp) (* time-in-hour 3600))
+        document (mc/insert-and-return "draw" {:name name
+                                               :user []
+                                               :end false
+                                               :endtime timestamp})
         draw-id (document :_id)]
-    (at-at/after (* time-in-hour 3600000) (update-draw-end (str draw-id)) my-pool)))
+    (at-at/after
+     (* time-in-hour 3600000)
+     (fn [] (update-draw-end (str draw-id)))
+     my-pool)))
 
 (defn update-draw-add-gamer [draw-id email random-str time]
+  (mc/update "users" {:id email}
+             {$push {:draw_attend draw-id}})
   (mc/update-by-id "draw" (ObjectId. draw-id)
                    {$push {:user {:email email
                                   :str random-str
@@ -63,7 +72,6 @@
 
 (defn get-draw-list-notend []
   (map #(assoc %
-          :id (% :_id)
-          :name (% :_id))
+          :id (% :_id))
        (mc/find-maps "draw" {:end false})))
 

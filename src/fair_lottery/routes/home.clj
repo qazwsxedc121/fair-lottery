@@ -12,6 +12,9 @@
 (defn about-page []
   (layout/render "about.html" {:content (util/md->html "/md/about.md")}))
 
+(defn user-draw []
+  (layout/render "user-draw.html"))
+
 (defn- not-attended [user-id users]
   (if user-id
     (every? #(not= user-id (% :email)) users)
@@ -62,4 +65,5 @@
   (GET "/draw/:id" [id] (draw-page id))
   (POST "/draw-attend" [draw-id random-str] (draw-attend draw-id random-str))
   (POST "/draw-create" [name time-in-hour] (draw-create name time-in-hour))
-  (GET "/draw/data/:id" [id] (draw-data id)))
+  (GET "/draw/data/:id" [id] (draw-data id))
+  (GET "/user-draw" [] (user-draw)))

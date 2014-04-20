@@ -23,20 +23,5 @@
   </form>
 </div>
 
-<div class="row">
-    <h2>新建抽奖</h2>
-  <form action="{{servlet-context}}/draw-create" method="POST">
-    <div class="form-group col-lg-3">
-      <label for="id">名称</label>
-      <p>
-        <input class="form-control" id="name" name="name" tabindex="1" type="text"></input>
-      </p>
-      <label for="id">从现在到截止的时间(小时)(整数)</label>
-      <p>
-        <input class="form-control" id="time-in-hour" name="time-in-hour" tabindex="1" type="number"></input>
-      </p>
-      <input class="btn" tabindex="4" type="submit" value="create">
-    </div>
-  </form>
-</div>
+
 {% endblock %}

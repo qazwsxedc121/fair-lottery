@@ -14,6 +14,8 @@ resultInInt = int(resultInHex,16)
 
 winner = resultInInt % len(dataOfResult)
 
+print "SHA256 result: " + resultInHex
+
 print "Winner index is : " + str(winner)
 
 print "Winner's email is : " + dataOfResult[winner]["email"]

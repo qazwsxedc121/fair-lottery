@@ -1,7 +1,7 @@
 {% extends "fair_lottery/views/templates/base.html" %}
 {% block content %}
 <div class="row">
-    <h2>新建抽奖</h2>
+  <h2>新建抽奖</h2>
   <form action="{{servlet-context}}/draw-create" method="POST">
     <div class="form-group col-lg-3">
       <label for="id">名称</label>
@@ -12,8 +12,16 @@
       <p>
         <input class="form-control" id="time-in-hour" name="time-in-hour" tabindex="1" type="number"></input>
       </p>
-      <input class="btn" tabindex="4" type="submit" value="create">
+      <input class="btn" tabindex="4" type="submit" value="新建">
     </div>
   </form>
+</div>
+<div class="row">
+  <h2>我参与的抽奖</h2>
+  <ol>
+  {% for draw in draw-attended %}
+    <li><a href="draw/{{ draw.id }}">{{ draw.name }}</a></li>
+  {% endfor %}
+  </ol>
 </div>
 {% endblock %}

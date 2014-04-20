@@ -65,6 +65,12 @@
 (defn get-draw [draw-id]
   (mc/find-one-as-map "draw" {:_id (ObjectId. draw-id)}))
 
+(defn get-draw-list-with-ids [draw-ids]
+  (map #(assoc {}
+          :id (% :_id)
+          :name (% :name))
+       (map get-draw draw-ids)))
+
 (defn get-draw-list-end []
   (map #(assoc %
           :id (% :_id))

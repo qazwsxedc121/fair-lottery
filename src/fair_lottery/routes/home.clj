@@ -13,7 +13,11 @@
   (layout/render "about.html" {:content (util/md->html "/md/about.md")}))
 
 (defn user-draw []
-  (layout/render "user-draw.html"))
+  (if-let [user-id (session/get :user-id)]
+    (let [draw-attend-ids (:draw_attend (db/get-user user-id))
+          draw-attend (db/get-draw-list-with-ids draw-attend-ids)]
+      (layout/render "user-draw.html" {:draw-attended draw-attend}))
+    (layout/render "about.html" {:content "<h1>Please login!</h1>"})))
 
 (defn- not-attended [user-id users]
   (if user-id

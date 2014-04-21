@@ -37,7 +37,12 @@
     (at-at/after
      (* time-in-hour 3600000)
      (fn [] (update-draw-end (str draw-id)))
-     my-pool)))
+     my-pool)
+    (str draw-id)))
+
+(defn update-user-draw-hold [user-id draw-id]
+  (mc/update "users" {:id user-id}
+                   {$push {:draw_hold draw-id}}))
 
 (defn update-draw-add-gamer [draw-id email random-str time]
   (mc/update "users" {:id email}

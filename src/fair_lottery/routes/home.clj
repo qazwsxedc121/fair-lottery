@@ -14,9 +14,13 @@
 
 (defn user-draw []
   (if-let [user-id (session/get :user-id)]
-    (let [draw-attend-ids (:draw_attend (db/get-user user-id))
-          draw-attend (db/get-draw-list-with-ids draw-attend-ids)]
-      (layout/render "user-draw.html" {:draw-attended draw-attend}))
+    (let [user (db/get-user user-id)
+          draw-attend-ids (:draw_attend user)
+          draw-hold-ids (:draw_hold user)
+          draw-attend (db/get-draw-list-with-ids draw-attend-ids)
+          draw-hold (db/get-draw-list-with-ids draw-hold-ids)]
+      (layout/render "user-draw.html" {:draw-attended draw-attend
+                                       :draw-hold draw-hold}))
     (layout/render "about.html" {:content "<h1>Please login!</h1>"})))
 
 (defn- not-attended [user-id users]
@@ -58,9 +62,9 @@
       (draw-page draw-id))))
 
 (defn draw-create [name time-in-hour]
-  (when-let [draw (db/create-draw name (. Integer parseInt time-in-hour))]
+  (when-let [draw-id (db/create-draw name (. Integer parseInt time-in-hour))]
+    (db/update-user-draw-hold (session/get :user-id) draw-id)
     (draw-list-page)))
-
 
 (defroutes home-routes
   (GET "/" [] (home-page))

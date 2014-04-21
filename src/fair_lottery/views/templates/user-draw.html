@@ -24,4 +24,12 @@
   {% endfor %}
   </ol>
 </div>
+<div class="row">
+  <h2>我举办的抽奖</h2>
+  <ol>
+  {% for draw in draw-hold %}
+    <li><a href="draw/{{ draw.id }}">{{ draw.name }}</a></li>
+  {% endfor %}
+  </ol>
+</div>
 {% endblock %}

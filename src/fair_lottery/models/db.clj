@@ -2,8 +2,7 @@
   (:require [monger.core :as mg]
             [monger.collection :as mc]
             [monger.operators :refer :all]
-            [fair-lottery.util :as util]
-            [overtone.at-at :as at-at])
+            [fair-lottery.util :as util])
   (:import [org.bson.types ObjectId]))
 
 ;; Tries to get the Mongo URI from the environment variable
@@ -25,8 +24,6 @@
 
 (declare update-draw-end get-draw)
 
-(def my-pool (at-at/mk-pool))
-
 (defn create-draw [name time-in-hour]
   (let [timestamp (+ (util/current-timestamp) (* time-in-hour 3600))
         document (mc/insert-and-return "draw" {:name name
@@ -34,10 +31,6 @@
                                                :end false
                                                :endtime timestamp})
         draw-id (document :_id)]
-    (at-at/after
-     (* time-in-hour 3600000)
-     (fn [] (update-draw-end (str draw-id)))
-     my-pool)
     (str draw-id)))
 
 (defn update-user-draw-hold [user-id draw-id]

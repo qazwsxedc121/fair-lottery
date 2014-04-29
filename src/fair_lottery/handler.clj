@@ -8,7 +8,8 @@
             [taoensso.timbre.appenders.rotor :as rotor]
             [selmer.parser :as parser]
             [environ.core :refer [env]]
-            [fair-lottery.routes.auth :refer [auth-routes]]))
+            [fair-lottery.routes.auth :refer [auth-routes]]
+            [fair-lottery.models.task :refer [start-cj!]]))
 
 (defroutes
   app-routes
@@ -32,6 +33,7 @@
     [:shared-appender-config :rotor]
     {:path "fair_lottery.log", :max-size (* 512 1024), :backlog 10})
   (if (env :dev) (parser/cache-off!))
+  (start-cj!)
   (timbre/info "fair-lottery started successfully"))
 
 (defn destroy

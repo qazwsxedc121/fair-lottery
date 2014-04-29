@@ -22,7 +22,8 @@
    [lib-noir "0.8.1"]
    [compojure "1.1.6"]
    [pandect "0.3.1"]
-   [overtone/at-at "1.2.0"]]
+   [clj-time "0.7.0"]
+   [im.chit/cronj "1.0.1"]]
   :ring
   {:handler fair-lottery.handler/app,
    :init fair-lottery.handler/init,

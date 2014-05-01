@@ -1,10 +1,14 @@
 <div class="navbar-collapse collapse">
 
 
-  {% if user-id %}
+
   <ul class="nav navbar-nav">
+    {% if user-id %}
     <li><a href="{{servlet-context}}/user-draw">我来参与</a></li>
+    {% endif %}
+    <li><a href="{{servlet-context}}/draw">历史抽奖记录</a></li>
   </ul>
+  {% if user-id %}
     <div class="btn-group pull-right">
       <ul class="nav navbar-nav">
         <li class="dropdown">

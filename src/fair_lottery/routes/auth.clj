@@ -40,15 +40,6 @@
         (register)))
     (register id)))
 
-(defn profile []
-  (layout/render
-    "profile.html"
-    {:user (db/get-user (session/get :user-id))}))
-
-(defn update-profile [{:keys [first-name last-name email]}]
-  (db/update-user (session/get :user-id) first-name last-name email)
-  (profile))
-
 (defn handle-login [id pass]
   (let [user (db/get-user id)]
     (if (and user (crypt/compare pass (:pass user)))
@@ -65,10 +56,6 @@
 
   (POST "/register" [id pass pass1]
         (handle-registration id pass pass1))
-
-  (GET "/profile" [] (profile))
-
-  (POST "/update-profile" {params :params} (update-profile params))
 
   (POST "/login" [id pass]
         (handle-login id pass))

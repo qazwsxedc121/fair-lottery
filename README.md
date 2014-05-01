@@ -10,6 +10,10 @@ You will need [Leiningen][1] 2.0 or above installed.
 
 ## Running
 
+Start a mongodb deamon on localhost at default port first.(modify the logpath for mongod)
+
+    mongod --fork --logpath /var/log/mongodb.log
+
 To start a web server for the application, run:
 
     lein ring server

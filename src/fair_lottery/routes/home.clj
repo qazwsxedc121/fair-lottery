@@ -3,6 +3,7 @@
   (:require [fair-lottery.views.layout :as layout]
             [fair-lottery.util :as util]
             [fair-lottery.models.db :as db]
+            [fair-lottery.models.task :as task]
             [noir.session :as session]))
 
 (defn home-page []
@@ -66,8 +67,17 @@
     (db/update-user-draw-hold (session/get :user-id) draw-id)
     (draw-list-page)))
 
+(defn admin-page []
+  (if-let [user-id (session/get :user-id)]
+    (let [user (db/get-user user-id)]
+      (if (= (user :role) "admin")
+        (layout/render "admin.html" {:process (apply str (task/task-info))})
+        (layout/render "about.html" {:content "not a admin!"})))
+    (layout/render "about.html" {:content "<h1>Please Login!</h1>"})))
+
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (GET "/admin" [] (admin-page))
   (GET "/about" [] (about-page))
   (GET "/draw" [] (draw-list-page))
   (GET "/draw/:id" [id] (draw-page id))

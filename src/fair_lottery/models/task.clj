@@ -17,5 +17,8 @@
 
 (def cj (cronj :entries [end-draw-task]))
 
+(defn task-info []
+  (get-threads cj "end-draw-task"))
+
 (defn start-cj! []
   (start! cj))

@@ -75,9 +75,17 @@
         (layout/render "about.html" {:content "not a admin!"})))
     (layout/render "about.html" {:content "<h1>Please Login!</h1>"})))
 
+(defn admin-action [action]
+  (do
+    (case action
+      "start-job" (task/start-cj!)
+      "stop-job" (task/stop-cj!))
+    (admin-page)))
+
 (defroutes home-routes
   (GET "/" [] (home-page))
   (GET "/admin" [] (admin-page))
+  (GET "/admin/action/:action" [action] (admin-action action))
   (GET "/about" [] (about-page))
   (GET "/draw" [] (draw-list-page))
   (GET "/draw/:id" [id] (draw-page id))

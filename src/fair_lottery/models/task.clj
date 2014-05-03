@@ -22,3 +22,6 @@
 
 (defn start-cj! []
   (start! cj))
+
+(defn stop-cj! []
+  (stop! cj))

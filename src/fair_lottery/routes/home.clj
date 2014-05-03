@@ -71,7 +71,7 @@
   (if-let [user-id (session/get :user-id)]
     (let [user (db/get-user user-id)]
       (if (= (user :role) "admin")
-        (layout/render "admin.html" {:process (apply str (task/task-info))})
+        (layout/render "admin.html" {:process (task/task-info)})
         (layout/render "about.html" {:content "not a admin!"})))
     (layout/render "about.html" {:content "<h1>Please Login!</h1>"})))
 

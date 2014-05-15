@@ -9,11 +9,11 @@
       <h1>任务进行情况:</h1>
       {%if process %}
       <p>running</p>
+      <p><a class="btn btn-primary" href="{{servlet-context}}/admin/action/stop-job">stop</a></p>
       {% else %}
       <p> stoped </p>
-      {% endif %}
       <p><a class="btn btn-primary" href="{{servlet-context}}/admin/action/start-job">start</a></p>
-      <p><a class="btn btn-primary" href="{{servlet-context}}/admin/action/stop-job">stop</a></p>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
